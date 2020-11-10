@@ -1,8 +1,9 @@
 # Dependencies and Setup
 from bs4 import BeautifulSoup
 from splinter import Browser
-import pandas as pd
 import datetime as dt
+# import pandas as pd
+import pandas as pd
 
 #################################################
 # Mac
@@ -20,7 +21,7 @@ import datetime as dt
 # browser = Browser("chrome", **executable_path)
 
 executable_path = {'executable_path': '/Users/dhalg/Downloads/chromedriver'}
-browser = Browser('chrome', **executable_path, headless=False)
+browser = Browser('chrome', **executable_path, headless=True)
 
 
 #################################################
@@ -44,7 +45,7 @@ def mars_news(browser):
     #     <li class="slide">
     try:
         slide_element = news_soup.select_one("ul.item_list li.slide")
-        slide_element.find("div", class_="content_title")
+        #slide_element.find("div", class_="content_title")
 
         # Scrape the Latest News Title
         # Use Parent Element to Find First <a> Tag and Save it as news_title
@@ -102,7 +103,7 @@ def mars_facts():
     df.columns=["Description", "Value"]
     df.set_index("Description", inplace=True)
 
-    return df.to_html(classes="table table-striped")
+    return df.to_html(classes="table table-dark table-striped")
 
 
 #################################################
@@ -158,8 +159,8 @@ def scrape_hemisphere(html_text):
 # Main Web Scraping
 #################################################
 def scrape_all():
-    executable_path = {'executable_path': '/Users/dhalg/Downloads/chromedriver'}
-    browser = Browser('chrome', **executable_path, headless=False)
+    #executable_path = {'executable_path': '/Users/dhalg/Downloads/chromedriver'}
+    #browser = Browser('chrome', **executable_path, headless=False)
     news_title, news_paragraph = mars_news(browser)
     img_url = featured_image(browser)
     facts = mars_facts()
